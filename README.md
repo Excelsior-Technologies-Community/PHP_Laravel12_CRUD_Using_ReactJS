@@ -16,24 +16,31 @@ SPA-like navigation using Inertia.js
 Responsive UI with Tailwind CSS
 
 ⚡ Installation & Setup
+
 1️⃣ Create Project
+
 composer create-project laravel/laravel laravel12-react-crud "12.*"
 cd laravel12-react-crud
 
 2️⃣ Install Breeze (React + Tailwind UI scaffolding)
+
 composer require laravel/breeze --dev
 php artisan breeze:install react
 
 3️⃣ Install Node Packages
+
 npm install
 
 4️⃣ Install Inertia.js
+
 npm install @inertiajs/inertia @inertiajs/react
 
 5️⃣ Optional: Install Axios
+
 npm install axios
 
 6️⃣ Run Vite (React Frontend)
+
 npm run dev
 
 7️⃣ Configure Database
@@ -48,6 +55,7 @@ DB_USERNAME=root
 DB_PASSWORD=
 
 8️⃣ Run Migrations
+
 php artisan migrate
 
 9️⃣ Start Laravel Server
