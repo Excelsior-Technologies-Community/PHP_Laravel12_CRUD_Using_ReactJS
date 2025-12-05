@@ -69,15 +69,20 @@ Open the app in your browser at:
 http://localhost:8000
 
 📂 Folder Structure
+
 laravel12-react-crud/
+
 │── app/
 │   ├── Http/Controllers/ProductController.php
 │   └── Models/Product.php
 │
+
 │── database/migrations/xxxx_create_products_table.php
 │
+
 │── routes/web.php
 │
+
 │── resources/js/
 │   ├── Pages/Products/
 │   │     ├── Index.jsx
@@ -86,6 +91,9 @@ laravel12-react-crud/
 │   │     └── Show.jsx
 │   └── app.jsx
 │
+
 │── package.json
+
 │── vite.config.js
+
 │── .env
