@@ -20,11 +20,13 @@ Responsive UI with Tailwind CSS
 1️⃣ Create Project
 
 composer create-project laravel/laravel laravel12-react-crud "12.*"
+
 cd laravel12-react-crud
 
 2️⃣ Install Breeze (React + Tailwind UI scaffolding)
 
 composer require laravel/breeze --dev
+
 php artisan breeze:install react
 
 3️⃣ Install Node Packages
@@ -59,6 +61,7 @@ DB_PASSWORD=
 php artisan migrate
 
 9️⃣ Start Laravel Server
+
 php artisan serve
 
 Open the app in your browser at:
