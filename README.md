@@ -1,4 +1,4 @@
-🚀 Laravel12-react-crud — Full Project Documentation
+## 🚀 Laravel12-react-crud — Full Project Documentation
 
 This documentation provides a clean, complete, and professional guide for the Laravel 12 + React + Inertia.js CRUD project. It explains folder structure, installation commands, database setup, controllers, models, React pages, and how to run the application.
 
