@@ -31,33 +31,40 @@ The UI is built using React, backend using Laravel REST-style controllers, and d
 
 ```
 laravel12-react-crud/
-│── app/
+│
+├── app/
 │   ├── Http/
-│   │    ├── Controllers/
-│   │    │     └── ProductController.php
+│   │   ├── Controllers/
+│   │   │   └── ProductController.php
+│   │   │
+│   │   ├── Middleware/
+│   │   │   └── HandleInertiaRequests.php
+│   │   │
+│   │
 │   ├── Models/
-│        └── Product.php
+│   │   └── Product.php
 │
-│── database/
+├── database/
 │   ├── migrations/
-│         └── xxxx_xx_xx_create_products_table.php
+│   │   └── xxxx_xx_xx_create_products_table.php
 │
-│── resources/
+├── resources/
 │   ├── js/
-│   │    ├── Pages/
-│   │    │     └── Products/
-│   │    │           ├── Index.jsx
-│   │    │           ├── Create.jsx
-│   │    │           ├── Edit.jsx
-│   │    │           ├── Show.jsx
-│   │    ├── app.jsx
+│   │   ├── Pages/
+│   │   │   └── Products/
+│   │   │       ├── Index.jsx
+│   │   │       ├── Create.jsx
+│   │   │       ├── Edit.jsx
+│   │   │       └── Show.jsx
+│   │   │
+│   │   └── app.jsx
 │
-│── routes/
-│   ├── web.php
+├── routes/
+│   └── web.php
 │
-│── .env
-│── package.json
-│── vite.config.js
+├── .env
+├── package.json
+└── vite.config.js
 ```
 
 ---
