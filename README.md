@@ -124,7 +124,6 @@ DB_PASSWORD=
 
 ```
 php artisan migrate
----
 
 ```
 ## 🎯 5. Migration Table
