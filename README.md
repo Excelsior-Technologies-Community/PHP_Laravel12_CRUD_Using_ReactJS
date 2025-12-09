@@ -1,4 +1,4 @@
-## 🚀 Laravel12-react-crud — Full Project Documentation
+## 🚀PHP_Laravel12_CRUD_Using_ReactJS — Full Project Documentation
 
 This documentation provides a clean, complete, and professional guide for the Laravel 12 + React + Inertia.js CRUD project. It explains folder structure, installation commands, database setup, controllers, models, React pages, and how to run the application.
 
@@ -30,7 +30,7 @@ The UI is built using React, backend using Laravel REST-style controllers, and d
 ## 📂 2. Folder Structure (Exact Project Structure)
 
 ```
-laravel12-react-crud/
+PHP_Laravel12_CRUD_Using_ReactJS/
 │
 ├── app/
 │   ├── Http/
@@ -73,8 +73,8 @@ laravel12-react-crud/
 
 ```bash
 # 1. Create project
-composer create-project laravel/laravel laravel12-react-crud "12.*"
-cd laravel12-react-crud
+composer create-project laravel/laravel PHP_Laravel12_CRUD_Using_ReactJS "12.*"
+cd PHP_Laravel12_CRUD_Using_ReactJS
 
 # 2. Install Breeze (React UI Scaffolding) — OPTIONAL
 composer require laravel/breeze --dev
@@ -955,4 +955,4 @@ npm run build
 
 ✅ **Keep both servers running** for smooth development.
 
-🎉 Your Laravel 12 + React + Inertia CRUD application is now fully ready and documented.
+🎉 Your PHP_Laravel12_CRUD_Using_ReactJS is now fully ready and documented.
