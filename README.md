@@ -1,4 +1,4 @@
-## 🚀PHP_Laravel12_CRUD_Using_ReactJS — Full Project Documentation
+## PHP_Laravel12_CRUD_Using_ReactJS — Full Project Documentation
 
 This documentation provides a clean, complete, and professional guide for the Laravel 12 + React + Inertia.js CRUD project. It explains folder structure, installation commands, database setup, controllers, models, React pages, and how to run the application.
 
@@ -6,7 +6,7 @@ The project demonstrates a modern full-stack setup combining Laravel 12 for the 
 
 ---
 
-## 📌 1. Project Overview
+## 1. Project Overview
 
 This project is a Laravel 12 + React + Inertia.js CRUD application designed to manage products. Users can perform the following operations:
 
@@ -27,7 +27,7 @@ The UI is built using React, backend using Laravel REST-style controllers, and d
 
 ---
 
-## 📂 2. Folder Structure (Exact Project Structure)
+## 2. Folder Structure (Exact Project Structure)
 
 ```
 PHP_Laravel12_CRUD_Using_ReactJS/
@@ -69,7 +69,7 @@ PHP_Laravel12_CRUD_Using_ReactJS/
 
 ---
 
-## 🎯 3. Installation Commands
+## 3. Installation Commands
 
 ```bash
 # 1. Create project
@@ -99,7 +99,7 @@ php artisan migrate
 php artisan serve
 ```
 
-### ✅ Notes
+### Notes:
 
 * Breeze is optional; we only use its React + Tailwind setup
 * Keep **two terminals running**:
@@ -109,7 +109,7 @@ php artisan serve
 
 ---
 
-## 🎯 4. .env Database Setup
+## 4. .env Database Setup
 
 ```
 DB_CONNECTION=mysql
@@ -126,11 +126,11 @@ DB_PASSWORD=
 php artisan migrate
 
 ```
-## 🎯 5. Migration Table
+## 5. Migration Table
 
-### 📄 database/migrations/xxxx_create_products_table.php
+### database/migrations/xxxx_create_products_table.php
 
-### ✅ Command
+### Command:
 
 ```bash
 php artisan make:migration create_products_table
@@ -203,11 +203,11 @@ return new class extends Migration
 
 ---
 
-## 🎯 6. Model
+## 6. Model
 
-### 📄 app/Models/Product.php
+### app/Models/Product.php
 
-### ✅ Command
+### Command:
 
 ```bash
 php artisan make:model Product
@@ -249,14 +249,14 @@ class Product extends Model
 
 ---
 
-## 🎯 7. Controller (CRUD)
+## 7. Controller (CRUD)
 
-### ✅ Command
+### Command
 
 ```bash
 php artisan make:controller ProductController
 ```
-### 📄 app/Http/Controllers/ProductController.php
+### app/Http/Controllers/ProductController.php
 ```
 <?php
 
@@ -381,9 +381,9 @@ class ProductController extends Controller
 
 ---
 ```
-## 🎯 8. Routes
+## 8. Routes
 
-### 📄 routes/web.php
+### routes/web.php
 ```
 <?php
 
@@ -428,9 +428,9 @@ require __DIR__.'/auth.php';
 ---
 
 ```
-## 🎯 9. Flash Messages (Inertia Middleware)
+## 9. Flash Messages (Inertia Middleware)
 
-### 📄 app/Http/Middleware/HandleInertiaRequests.php
+### app/Http/Middleware/HandleInertiaRequests.php
 ```php
 
 'flash' => [
@@ -440,16 +440,16 @@ require __DIR__.'/auth.php';
 ```
 
 ---
-## 🎯 10. React Pages
+## 10. React Pages
 
-### 📁 resources/js/Pages/Products/
+### resources/js/Pages/Products/
 
 * Index.jsx
 * Create.jsx
 * Edit.jsx
 * Show.jsx
 
-1️⃣ Index.jsx — List Products
+1️. Index.jsx — List Products
 
 Path: resources/js/Pages/Products/Index.jsx
 
@@ -595,7 +595,7 @@ export default function Index() {
 }
 
 ```
-2️⃣ Create.jsx — Add New Product
+2️. Create.jsx — Add New Product
 
 Path: resources/js/Pages/Products/Create.jsx
 
@@ -719,7 +719,7 @@ export default function Create() {
 }
 
 ```
-3️⃣ Edit.jsx — Edit Existing Product
+3️. Edit.jsx — Edit Existing Product
 
 Path: resources/js/Pages/Products/Edit.jsx
 
@@ -842,7 +842,7 @@ export default function Edit() {
 }
 
 ```
-4️⃣ Show.jsx — Display Single Product
+4️. Show.jsx — Display Single Product
 
 Path: resources/js/Pages/Products/Show.jsx
 
@@ -920,9 +920,9 @@ export default function Show() {
 
 ---
 ```
-## 🚀 11. How to Run the Application
+## 11. How to Run the Application
 
-### 1️⃣ Start Laravel Backend
+### 1️. Start Laravel Backend
 
 ```bash
 php artisan serve
@@ -934,25 +934,71 @@ Visit:
 [http://localhost:8000](http://localhost:8000)
 ```
 
-### 2️⃣ Start Frontend (Vite)
+### 2️. Start Frontend (Vite)
 
 ```bash
 npm run dev
 ```
 
-### 3️⃣ Optional Production Build
+### 3️. Optional Production Build
 
 ```bash
 npm run build
 ```
 
-### 4️⃣ Open App
+### 4️. Open App
 ```
 * Home: [http://localhost:8000](http://localhost:8000)
 * Products: [http://localhost:8000/products](http://localhost:8000/products)
 ```
+ **Keep both servers running** for smooth development.
+
+# Output:
 ---
+For Index:
 
-✅ **Keep both servers running** for smooth development.
+```
+http://localhost:8000/products
+```
+<img width="1916" height="1088" alt="Screenshot 2025-12-13 120901" src="https://github.com/user-attachments/assets/3c789ec2-83b0-42fb-9b47-7255fda697d6" />
 
-🎉 Your PHP_Laravel12_CRUD_Using_ReactJS is now fully ready and documented.
+---
+For Create:
+
+```
+http://localhost:8000/products/create
+```
+
+<img width="1912" height="1024" alt="Screenshot 2025-12-05 115458" src="https://github.com/user-attachments/assets/f52d2c2e-0311-4f57-a226-b0596a07e84a" />
+
+---
+For Edit:
+
+```
+http://localhost:8000/products/{id}/edit
+```
+
+<img width="1919" height="1036" alt="Screenshot 2025-12-05 115539" src="https://github.com/user-attachments/assets/cc6f4393-a5e7-4a6a-b3b8-1328ff289721" />
+
+---
+For Show:
+
+```
+http://localhost:8000/products/{id}
+```
+
+<img width="1916" height="1022" alt="Screenshot 2025-12-05 115559" src="https://github.com/user-attachments/assets/1f9d0b05-ba7a-4202-b02b-3fb2f83cbd90" />
+
+---
+For Delete:
+
+```
+http://localhost:8000/products/{id}
+```
+
+<img width="1919" height="1029" alt="Screenshot 2025-12-05 115622" src="https://github.com/user-attachments/assets/f2d9a14a-93bb-4cd2-9f2c-22d2e248f285" />
+
+<img width="1919" height="1029" alt="Screenshot 2025-12-05 115637" src="https://github.com/user-attachments/assets/dfda77db-b928-4359-93bb-3af221445390" />
+
+---
+Your PHP_Laravel12_CRUD_Using_ReactJS is now fully ready and documented.
