@@ -449,7 +449,7 @@ require __DIR__.'/auth.php';
 * Edit.jsx
 * Show.jsx
 
-1️. Index.jsx — List Products
+**1️. Index.jsx — List Products**
 
 Path: resources/js/Pages/Products/Index.jsx
 
@@ -595,7 +595,7 @@ export default function Index() {
 }
 
 ```
-2️. Create.jsx — Add New Product
+**2️. Create.jsx — Add New Product**
 
 Path: resources/js/Pages/Products/Create.jsx
 
@@ -719,7 +719,7 @@ export default function Create() {
 }
 
 ```
-3️. Edit.jsx — Edit Existing Product
+**3️. Edit.jsx — Edit Existing Product**
 
 Path: resources/js/Pages/Products/Edit.jsx
 
@@ -842,7 +842,7 @@ export default function Edit() {
 }
 
 ```
-4️. Show.jsx — Display Single Product
+**4️. Show.jsx — Display Single Product**
 
 Path: resources/js/Pages/Products/Show.jsx
 
