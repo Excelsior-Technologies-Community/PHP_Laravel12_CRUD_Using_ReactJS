@@ -35,4 +35,4 @@ Route::get('/products/{product}/edit', [ProductController::class, 'edit'])->name
 Route::put('/products/{id}', [ProductController::class, 'update'])->name('products.update'); // Update product
 Route::delete('/products/{id}', [ProductController::class, 'destroy'])->name('products.destroy'); // Delete product
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
