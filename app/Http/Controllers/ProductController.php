@@ -15,10 +15,35 @@ class ProductController extends Controller
      * This method fetches all products from the database
      * and sends them to the Inertia 'Products/Index' page.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::all(); // Get all products
-        return Inertia::render('Products/Index', ['products' => $products]); // Pass data to React page
+        $query = Product::query();
+
+        // 🔍 Search (name + detail)
+        if ($request->search) {
+            $query->where(function ($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->search . '%')
+                    ->orwhere('status', 'like', '%' . $request->search . '%')
+                    ->orWhere('detail', 'like', '%' . $request->search . '%');
+            });
+        }
+
+        // 💰 Filter
+        if ($request->min_price) {
+            $query->where('price', '>=', $request->min_price);
+        }
+
+        if ($request->max_price) {
+            $query->where('price', '<=', $request->max_price);
+        }
+
+        // 📄 Pagination
+        $products = $query->paginate(4)->withQueryString();
+
+        return Inertia::render('Products/Index', [
+            'products' => $products,
+            'filters' => $request->only(['search', 'min_price', 'max_price']),
+        ]);
     }
 
     /**

@@ -1,136 +1,177 @@
 import React from 'react';
-import { Head, usePage, Link } from '@inertiajs/react'; // Inertia helpers
-import { Inertia } from '@inertiajs/inertia'; // For making Inertia requests (delete, post, etc.)
+import { Head, usePage, Link, router } from '@inertiajs/react';
+import { Inertia } from '@inertiajs/inertia';
 
 export default function Index() {
-    // ✅ Destructure props from Inertia page
-    // `products` is the array of all products passed from the backend
-    // `flash` contains flash messages (success or error) passed from Laravel session
-    const { products, flash } = usePage().props;
 
-    // ✅ Function to handle product deletion
+    const { products, flash, filters } = usePage().props;
+
     const destroy = (e) => {
-        // Confirm before deleting
-        if (confirm("Are you sure you want to delete this product?")) {
-            // Send DELETE request using Inertia
+        if (confirm("Are you sure?")) {
             Inertia.delete(route("products.destroy", e.currentTarget.id));
         }
     };
 
+    const handleSearch = (e) => {
+        e.preventDefault();
+
+        router.get('/products', {
+            search: e.target.search.value,
+            min_price: e.target.min_price.value,
+            max_price: e.target.max_price.value,
+        });
+    };
+
     return (
-        <div className="container mx-auto py-12 px-4">
-            {/* ✅ Set the page title for SEO & browser tab */}
+        <div className="min-h-screen bg-gray-100 p-6">
             <Head title="Products" />
 
-            {/* ✅ Flash Success Message */}
+            {/* ✅ Flash */}
             {flash?.success && (
-                <div className="mb-6 p-4 text-green-800 bg-green-200 border border-green-400 rounded-lg">
-                    {flash.success} {/* Display the success message */}
+                <div className="mb-4 p-3 bg-green-100 text-green-700 rounded shadow">
+                    {flash.success}
                 </div>
             )}
 
-            {/* ✅ Header Section */}
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8">
-                <h2 className="text-3xl font-bold text-gray-800 mb-4 sm:mb-0">
-                    Products
-                </h2>
+            {/* ✅ Header */}
+            <div className="flex justify-between items-center mb-6">
+                <h1 className="text-3xl font-bold text-gray-800">Products</h1>
 
-                {/* ✅ Link to create a new product */}
                 <Link
                     href={route("products.create")}
-                    className="inline-block px-6 py-2 bg-green-600 text-white font-semibold rounded-lg shadow hover:bg-green-700 transition duration-300"
+                    className="bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded-lg shadow"
                 >
-                    + Create Product
+                    + Add Product
                 </Link>
             </div>
 
-            {/* ✅ Products Table */}
-            <div className="overflow-x-auto bg-white shadow-md rounded-lg border border-gray-200">
-                <table className="min-w-full divide-y divide-gray-200">
-                    {/* Table Head */}
-                    <thead className="bg-gray-50">
+            {/* ✅ Search Card */}
+            <div className="bg-white p-4 rounded-xl shadow mb-6">
+                <form onSubmit={handleSearch} className="flex flex-wrap gap-3">
+
+                    <input
+                        type="text"
+                        name="search"
+                        placeholder="🔍 Search product..."
+                        defaultValue={filters?.search || ""}
+                        className="border px-4 py-2 rounded w-60"
+                    />
+
+                    <input
+                        type="number"
+                        name="min_price"
+                        placeholder="Min ₹"
+                        defaultValue={filters?.min_price || ""}
+                        className="border px-4 py-2 rounded w-32"
+                    />
+
+                    <input
+                        type="number"
+                        name="max_price"
+                        placeholder="Max ₹"
+                        defaultValue={filters?.max_price || ""}
+                        className="border px-4 py-2 rounded w-32"
+                    />
+
+                    <button className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded">
+                        Apply
+                    </button>
+                </form>
+            </div>
+
+            {/* ✅ Table Card */}
+            <div className="bg-white rounded-xl shadow overflow-hidden">
+                <table className="w-full text-sm">
+                    <thead className="bg-gray-200 text-gray-700">
                         <tr>
-                            <th className="px-6 py-3 text-left text-sm font-medium text-gray-700 uppercase tracking-wider">
-                                ID
-                            </th>
-                            <th className="px-6 py-3 text-left text-sm font-medium text-gray-700 uppercase tracking-wider">
-                                Name
-                            </th>
-                            <th className="px-6 py-3 text-left text-sm font-medium text-gray-700 uppercase tracking-wider">
-                                Detail
-                            </th>
-                            <th className="px-6 py-3 text-left text-sm font-medium text-gray-700 uppercase tracking-wider">
-                                Price
-                            </th>
-                            <th className="px-6 py-3 text-left text-sm font-medium text-gray-700 uppercase tracking-wider">
-                                Status
-                            </th>
-                            <th className="px-6 py-3 text-center text-sm font-medium text-gray-700 uppercase tracking-wider">
-                                Action
-                            </th>
+                            <th className="p-3 text-left">ID</th>
+                            <th className="p-3 text-left">Name</th>
+                            <th className="p-3 text-left">Detail</th>
+                            <th className="p-3 text-left">Price</th>
+                            <th className="p-3 text-left">Status</th>
+                            <th className="p-3 text-center">Action</th>
                         </tr>
                     </thead>
 
-                    {/* Table Body */}
-                    <tbody className="bg-white divide-y divide-gray-200">
-                        {/* ✅ Check if products exist */}
-                        {products.length > 0 ? (
-                            products.map(({ id, name, detail, price, status }) => (
-                                <tr key={id} className="hover:bg-gray-50 transition duration-150">
-                                    <td className="px-6 py-4 text-sm text-gray-700">{id}</td>
-                                    <td className="px-6 py-4 text-sm text-gray-800 font-medium">{name}</td>
-                                    <td className="px-6 py-4 text-sm text-gray-600">{detail}</td>
-                                    <td className="px-6 py-4 text-sm text-gray-700">{price}</td>
+                    <tbody>
+                        {products.data.length > 0 ? (
+                            products.data.map((p) => (
+                                <tr key={p.id} className="border-t hover:bg-gray-50">
 
-                                    {/* ✅ Status with conditional color */}
-                                    <td className={`px-6 py-4 text-sm font-semibold ${
-                                        status === 'active' ? 'text-green-600' : 'text-red-600'
-                                    }`}>
-                                        {/* Capitalize first letter */}
-                                        {status.charAt(0).toUpperCase() + status.slice(1)}
+                                    <td className="p-3">{p.id}</td>
+
+                                    <td className="p-3 font-medium text-gray-800">
+                                        {p.name}
                                     </td>
 
-                                    {/* ✅ Action buttons */}
-                                    <td className="px-6 py-4 text-center">
-                                        <div className="flex justify-center gap-2 flex-wrap">
-                                            {/* Show Product Details */}
-                                            <Link
-                                                href={route("products.show", id)}
-                                                className="px-4 py-2 text-sm bg-gray-600 text-white rounded-lg shadow hover:bg-gray-700 transition duration-300"
-                                            >
-                                                Show
-                                            </Link>
-
-                                            {/* Edit Product */}
-                                            <Link
-                                                href={route("products.edit", id)}
-                                                className="px-4 py-2 text-sm bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition duration-300"
-                                            >
-                                                Edit
-                                            </Link>
-
-                                            {/* Delete Product */}
-                                            <button
-                                                id={id}
-                                                onClick={destroy}
-                                                className="px-4 py-2 text-sm bg-red-600 text-white rounded-lg shadow hover:bg-red-700 transition duration-300"
-                                            >
-                                                Delete
-                                            </button>
-                                        </div>
+                                    <td className="p-3 text-gray-600">
+                                        {p.detail}
                                     </td>
+
+                                    <td className="p-3 text-blue-600 font-semibold">
+                                        ₹{p.price}
+                                    </td>
+
+                                    <td className="p-3">
+                                        <span className={`px-2 py-1 rounded text-xs font-bold ${
+                                            p.status === 'active'
+                                                ? 'bg-green-100 text-green-700'
+                                                : 'bg-red-100 text-red-600'
+                                        }`}>
+                                            {p.status}
+                                        </span>
+                                    </td>
+
+                                    <td className="p-3 text-center space-x-2">
+                                        <Link
+                                            href={route("products.show", p.id)}
+                                            className="bg-gray-600 text-white px-3 py-1 rounded"
+                                        >
+                                            View
+                                        </Link>
+
+                                        <Link
+                                            href={route("products.edit", p.id)}
+                                            className="bg-blue-600 text-white px-3 py-1 rounded"
+                                        >
+                                            Edit
+                                        </Link>
+
+                                        <button
+                                            id={p.id}
+                                            onClick={destroy}
+                                            className="bg-red-600 text-white px-3 py-1 rounded"
+                                        >
+                                            Delete
+                                        </button>
+                                    </td>
+
                                 </tr>
                             ))
                         ) : (
-                            // ✅ Show this when no products exist
                             <tr>
-                                <td colSpan="6" className="px-6 py-4 text-center text-gray-500">
-                                    No products found.
+                                <td colSpan="6" className="text-center p-5 text-gray-500">
+                                    No products found 😔
                                 </td>
                             </tr>
                         )}
                     </tbody>
                 </table>
+            </div>
+
+            {/* ✅ Pagination */}
+            <div className="mt-6 flex flex-wrap gap-2 justify-center">
+                {products.links.map((link, i) => (
+                    <button
+                        key={i}
+                        disabled={!link.url}
+                        onClick={() => router.get(link.url)}
+                        dangerouslySetInnerHTML={{ __html: link.label }}
+                        className={`px-3 py-1 rounded border ${
+                            link.active ? 'bg-blue-600 text-white' : 'bg-white'
+                        }`}
+                    />
+                ))}
             </div>
         </div>
     );
