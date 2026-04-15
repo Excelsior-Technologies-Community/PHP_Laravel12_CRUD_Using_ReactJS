@@ -113,11 +113,10 @@ export default function Index() {
                                     </td>
 
                                     <td className="p-3">
-                                        <span className={`px-2 py-1 rounded text-xs font-bold ${
-                                            p.status === 'active'
+                                        <span className={`px-2 py-1 rounded text-xs font-bold ${p.status === 'active'
                                                 ? 'bg-green-100 text-green-700'
                                                 : 'bg-red-100 text-red-600'
-                                        }`}>
+                                            }`}>
                                             {p.status}
                                         </span>
                                     </td>
@@ -167,9 +166,8 @@ export default function Index() {
                         disabled={!link.url}
                         onClick={() => router.get(link.url)}
                         dangerouslySetInnerHTML={{ __html: link.label }}
-                        className={`px-3 py-1 rounded border ${
-                            link.active ? 'bg-blue-600 text-white' : 'bg-white'
-                        }`}
+                        className={`px-3 py-1 rounded border ${link.active ? 'bg-blue-600 text-white' : 'bg-white'
+                            }`}
                     />
                 ))}
             </div>
