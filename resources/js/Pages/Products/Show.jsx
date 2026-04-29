@@ -36,6 +36,14 @@ export default function Show() {
                         <p className="text-gray-900 text-lg">{product.name}</p>
                     </div>
 
+                    {/* ✅ Product Category (Added) */}
+                    <div>
+                        <h3 className="text-gray-700 font-medium">Category:</h3>
+                        <p className="text-gray-900 text-lg">
+                            {product.category ? product.category.name : "N/A"}
+                        </p>
+                    </div>
+
                     {/* Product Detail */}
                     <div>
                         <h3 className="text-gray-700 font-medium">Detail:</h3>
@@ -46,7 +54,7 @@ export default function Show() {
                     {/* Product Price */}
                     <div>
                         <h3 className="text-gray-700 font-medium">Price:</h3>
-                        <p className="text-gray-900 text-lg">{product.price}</p>
+                        <p className="text-gray-900 text-lg">₹{product.price}</p>
                     </div>
 
                     {/* Product Status */}
