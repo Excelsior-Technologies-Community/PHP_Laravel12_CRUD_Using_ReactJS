@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Product extends Model
 {
@@ -20,6 +21,7 @@ class Product extends Model
      * These are the fields that can be filled using methods like `create()` or `update()`.
      */
     protected $fillable = [
+        'category_id',
         'name',       // Name of the product
         'detail',     // Detailed description (nullable)
         'price',      // Product price (decimal)
@@ -27,4 +29,9 @@ class Product extends Model
         'created_by', // ID of the user who created this product (nullable)
         'updated_by', // ID of the user who last updated this product (nullable)
     ];
+
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class);
+    }
 }

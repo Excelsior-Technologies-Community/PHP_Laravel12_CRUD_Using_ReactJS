@@ -4,13 +4,14 @@ import { Head, useForm, Link } from '@inertiajs/react';
 // useForm: Inertia hook for handling form data & submission
 // Link: SPA navigation (like <a> but without full page reload)
 
-export default function Create() {
+export default function Create({ categories }) { // ✅ Received categories prop from controller
     // ✅ Initialize the form data and methods
     // `data` holds all form input values
     // `setData` updates form values
     // `post` sends POST request to Laravel route
     // `errors` contains validation errors from backend
     const { data, setData, post, errors } = useForm({
+        category_id: "", // ✅ Initialized category_id
         name: "",       // Product name
         detail: "",     // Product detail/description
         price: "",      // Product price
@@ -48,6 +49,25 @@ export default function Create() {
             <div className="bg-white shadow-md rounded-lg border border-gray-200 p-8 max-w-3xl mx-auto">
                 {/* Form submission handled by handleSubmit */}
                 <form onSubmit={handleSubmit} className="space-y-6">
+
+                    {/* ✅ Category Selection */}
+                    <div>
+                        <label className="block text-gray-700 font-medium mb-2">Category</label>
+                        <select
+                            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                            value={data.category_id}
+                            onChange={(e) => setData("category_id", e.target.value)}
+                        >
+                            <option value="">Select Category</option>
+                            {categories.map((cat) => (
+                                <option key={cat.id} value={cat.id}>
+                                    {cat.name}
+                                </option>
+                            ))}
+                        </select>
+                        {/* Display validation error for category_id */}
+                        {errors.category_id && <p className="text-red-600 mt-1">{errors.category_id}</p>}
+                    </div>
 
                     {/* Product Name */}
                     <div>
