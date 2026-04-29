@@ -2,13 +2,12 @@ import React from 'react';
 import { Head, usePage, Link, useForm } from '@inertiajs/react';
 
 // ✅ Edit.jsx Component: Allows editing an existing product
-export default function Edit() {
-    // ✅ Get the product data passed from the controller via Inertia
-    const { product } = usePage().props;
-
+export default function Edit({ product, categories }) { // ✅ Received categories from props
+    
     // ✅ Initialize Inertia form with product's current data
     // useForm handles form state, errors, and sending requests
     const { data, setData, put, errors } = useForm({
+        category_id: product.category_id || "", // ✅ Pre-fill existing category_id
         name: product.name || "",       // Pre-fill name
         detail: product.detail || "",   // Pre-fill detail
         price: product.price || "",     // Pre-fill price
@@ -46,6 +45,25 @@ export default function Edit() {
             {/* ✅ Form Card */}
             <div className="bg-white shadow-md rounded-lg border border-gray-200 p-8 max-w-3xl mx-auto">
                 <form onSubmit={handleSubmit} className="space-y-6">
+
+                    {/* ✅ Category Selection */}
+                    <div>
+                        <label className="block text-gray-700 font-medium mb-2">Category</label>
+                        <select
+                            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                            value={data.category_id}
+                            onChange={(e) => setData("category_id", e.target.value)}
+                        >
+                            <option value="">Select Category</option>
+                            {categories.map((cat) => (
+                                <option key={cat.id} value={cat.id}>
+                                    {cat.name}
+                                </option>
+                            ))}
+                        </select>
+                        {/* Display validation error for category_id */}
+                        {errors.category_id && <p className="text-red-600 mt-1">{errors.category_id}</p>}
+                    </div>
 
                     {/* Product Name */}
                     <div>

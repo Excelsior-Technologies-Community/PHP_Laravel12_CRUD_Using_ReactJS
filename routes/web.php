@@ -5,6 +5,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CategoryController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -34,5 +35,13 @@ Route::get('/products/{product}', [ProductController::class, 'show'])->name('pro
 Route::get('/products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit'); // Show edit form
 Route::put('/products/{id}', [ProductController::class, 'update'])->name('products.update'); // Update product
 Route::delete('/products/{id}', [ProductController::class, 'destroy'])->name('products.destroy'); // Delete product
+
+// Categories CRUD routes
+Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
+Route::get('/categories/create', [CategoryController::class, 'create'])->name('categories.create');
+Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
+Route::get('/categories/{category}/edit', [CategoryController::class, 'edit'])->name('categories.edit');
+Route::put('/categories/{id}', [CategoryController::class, 'update'])->name('categories.update');
+Route::delete('/categories/{id}', [CategoryController::class, 'destroy'])->name('categories.destroy');
 
 require __DIR__ . '/auth.php';

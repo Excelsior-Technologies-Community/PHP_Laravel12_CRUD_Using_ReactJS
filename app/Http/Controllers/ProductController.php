@@ -5,30 +5,29 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Inertia\Inertia; // Inertia.js for React frontend rendering
 use App\Models\Product; // Product model
+use App\Models\Category; // Category model for relationships
 use Illuminate\Support\Facades\Validator; // Validator for request validation
 
 class ProductController extends Controller
 {
     /**
-     * Display a listing of products.
-     * 
-     * This method fetches all products from the database
-     * and sends them to the Inertia 'Products/Index' page.
+     * Display a listing of products with categories.
      */
     public function index(Request $request)
     {
-        $query = Product::query();
+        // Fetch products with their related category data
+        $query = Product::with('category');
 
-        // 🔍 Search (name + detail)
+        // 🔍 Search (name + status + detail)
         if ($request->search) {
             $query->where(function ($q) use ($request) {
                 $q->where('name', 'like', '%' . $request->search . '%')
-                    ->orwhere('status', 'like', '%' . $request->search . '%')
+                    ->orWhere('status', 'like', '%' . $request->search . '%')
                     ->orWhere('detail', 'like', '%' . $request->search . '%');
             });
         }
 
-        // 💰 Filter
+        // 💰 Filter by price range
         if ($request->min_price) {
             $query->where('price', '>=', $request->min_price);
         }
@@ -37,7 +36,7 @@ class ProductController extends Controller
             $query->where('price', '<=', $request->max_price);
         }
 
-        // 📄 Pagination
+        // 📄 Pagination with query string preservation
         $products = $query->paginate(4)->withQueryString();
 
         return Inertia::render('Products/Index', [
@@ -47,75 +46,71 @@ class ProductController extends Controller
     }
 
     /**
-     * Show the form for creating a new product.
-     * 
-     * This method renders the React 'Products/Create' page
-     * which contains the form to add a new product.
+     * Show the form for creating a new product with category list.
      */
     public function create()
     {
-        return Inertia::render('Products/Create'); // Show create product form
+        // Fetch only active categories for the dropdown
+        $categories = Category::where('status', 'active')->get();
+
+        return Inertia::render('Products/Create', [
+            'categories' => $categories
+        ]);
     }
 
     /**
      * Store a newly created product.
-     * 
-     * This method validates the request data and saves a new product to the database.
-     * After creation, it redirects to the products list with a success message.
      */
     public function store(Request $request)
     {
-        // Validate incoming request data
+        // Validate incoming request data including category_id
         Validator::make($request->all(), [
+            'category_id' => ['required', 'exists:categories,id'],
             'name' => ['required', 'string', 'max:255'],
             'detail' => ['nullable', 'string'],
             'price' => ['required', 'numeric'],
             'status' => ['required', 'in:active,inactive'],
         ])->validate();
 
-        Product::create($request->all()); // Save product to database
+        Product::create($request->all()); // Save product with category_id to database
 
         // Redirect with flash message
         return redirect()->route('products.index')->with('success', 'Product created successfully!');
     }
 
     /**
-     * Display the specified product.
-     * 
-     * This method shows the details of a single product
-     * on the React 'Products/Show' page.
+     * Display the specified product with its category.
      */
     public function show(Product $product)
     {
+        // Load the category relationship before rendering
         return Inertia::render('Products/Show', [
-            'product' => $product // Pass the product to React page
+            'product' => $product->load('category') 
         ]);
     }
 
     /**
-     * Show the form for editing a product.
-     * 
-     * This method renders the React 'Products/Edit' page
-     * with the selected product data pre-filled in the form.
+     * Show the form for editing a product with category list.
      */
     public function edit(Product $product)
     {
+        // Fetch active categories to populate the dropdown in the edit form
+        $categories = Category::where('status', 'active')->get();
+
         return Inertia::render('Products/Edit', [
-            'product' => $product // Pass product to React edit page
+            'product' => $product,
+            'categories' => $categories
         ]);
     }
 
     /**
      * Update the specified product.
-     * 
-     * This method validates the request data and updates
-     * the existing product in the database.
-     * After update, it redirects to the products list with a success message.
      */
     public function update($id, Request $request)
     {
-        // Validate incoming request data
+        // Validate incoming request data including category_id
         Validator::make($request->all(), [
+            'category_id' => ['required', 'exists:categories,id'],
             'name' => ['required', 'string', 'max:255'],
             'detail' => ['nullable', 'string'],
             'price' => ['required', 'numeric'],
@@ -130,9 +125,6 @@ class ProductController extends Controller
 
     /**
      * Remove the specified product.
-     * 
-     * This method deletes the selected product from the database.
-     * After deletion, it redirects to the products list with a success message.
      */
     public function destroy($id)
     {

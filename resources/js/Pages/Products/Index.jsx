@@ -37,12 +37,22 @@ export default function Index() {
             <div className="flex justify-between items-center mb-6">
                 <h1 className="text-3xl font-bold text-gray-800">Products</h1>
 
-                <Link
-                    href={route("products.create")}
-                    className="bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded-lg shadow"
-                >
-                    + Add Product
-                </Link>
+                <div className="flex space-x-2">
+                    {/* ✅ Manage Categories Button */}
+                    <Link
+                        href={route("categories.index")}
+                        className="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2 rounded-lg shadow"
+                    >
+                        Manage Categories
+                    </Link>
+
+                    <Link
+                        href={route("products.create")}
+                        className="bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded-lg shadow"
+                    >
+                        + Add Product
+                    </Link>
+                </div>
             </div>
 
             {/* ✅ Search Card */}
@@ -85,6 +95,7 @@ export default function Index() {
                     <thead className="bg-gray-200 text-gray-700">
                         <tr>
                             <th className="p-3 text-left">ID</th>
+                            <th className="p-3 text-left">Category</th> {/* ✅ Category Column Header */}
                             <th className="p-3 text-left">Name</th>
                             <th className="p-3 text-left">Detail</th>
                             <th className="p-3 text-left">Price</th>
@@ -99,6 +110,13 @@ export default function Index() {
                                 <tr key={p.id} className="border-t hover:bg-gray-50">
 
                                     <td className="p-3">{p.id}</td>
+
+                                    {/* ✅ Display Category Name */}
+                                    <td className="p-3">
+                                        <span className="bg-indigo-50 text-indigo-700 px-2 py-1 rounded text-xs font-semibold border border-indigo-100">
+                                            {p.category ? p.category.name : 'N/A'}
+                                        </span>
+                                    </td>
 
                                     <td className="p-3 font-medium text-gray-800">
                                         {p.name}
@@ -149,7 +167,7 @@ export default function Index() {
                             ))
                         ) : (
                             <tr>
-                                <td colSpan="6" className="text-center p-5 text-gray-500">
+                                <td colSpan="7" className="text-center p-5 text-gray-500">
                                     No products found 😔
                                 </td>
                             </tr>
